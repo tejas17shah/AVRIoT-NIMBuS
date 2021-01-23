@@ -1,0 +1,22 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: An AWS Serverless Specification template describing your function.
+Resources:
+  analyzeSensorData:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.8
+      CodeUri: .
+      Description: ''
+      MemorySize: 128
+      Timeout: 3
+      Role: 'arn:aws:iam::754657721900:role/Lambda_IoT_role'
+      Events:
+        IoTRule1:
+          Type: IoTRule
+          Properties:
+            Sql: SELECT B FROM 'buttonPresses'
+      Layers:
+        - >-
+          arn:aws:lambda:us-east-2:259788987135:layer:AWSLambda-Python38-SciPy1x:29
